@@ -1,22 +1,40 @@
-using AspNet6Course.Services;
-
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<IResponseFormatter, HtmlResponseFormatter>();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(5);
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
-//IResponseFormatter formatter = new TextResponseFormatter();
+app.UseSession();
 
-app.MapGet("/f1", async (HttpContext context, IResponseFormatter formatter) =>
+app.MapGet("/session", async context =>
 {
-    await formatter.Format(context, "Formatter 1");
+    int counter = (context.Session.GetInt32("counter") ?? 0) + 1;
+    context.Session.SetInt32("counter", counter);
+    context.Session.CommitAsync();
+    await context.Response.WriteAsync($"Res from session: {counter}");
 });
 
-app.MapGet("/f2", async (HttpContext context, IResponseFormatter formatter) =>
+app.MapGet("/cookie", async context =>
 {
-    await formatter.Format(context, "Formatter 2");
+    int counter = int.Parse(context.Request.Cookies["counter"] ?? "0") + 1;
+    context.Response.Cookies.Append(
+        "counter",
+        counter.ToString(),
+        new CookieOptions
+        {
+            MaxAge = TimeSpan.FromMinutes(2)
+        }
+
+        );
+    await context.Response.WriteAsync($"Cookie Content: {counter}");
 });
+
+
 
 app.MapGet("/", () => "Hello World!");
 
