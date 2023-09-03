@@ -1,5 +1,6 @@
 using AspNet6Course.Data;
 using AspNet6Course.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AspNet6Course.Pages
@@ -13,9 +14,16 @@ namespace AspNet6Course.Pages
 			_context = context;
 		}
 
-		public async Task OnGetAsync(long id = 1)
+		public async Task<IActionResult> OnGetAsync(long id = 1)
 		{
 			product = await _context.Products.FindAsync(id);
+
+			if (product == null)
+			{
+				return RedirectToPage("NotFound");
+			}
+
+			return Page();
 		}
 	}
 }

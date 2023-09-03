@@ -1,0 +1,19 @@
+﻿@page "{id:long?}"
+@model AspNet6Course.Pages.HandlerSelectorModel
+@{
+}
+
+
+<table class="table table-striped table-bordered">
+	<tr>
+	<th>Name</th>
+	<th>Price</th>
+	<th>Category</th>
+	</tr>
+	<tr>
+		<td>@Model.product.Name</td>
+		<td>@Model.product.price</td>
+		<td>@Model.product.Category?.Name</td>
+	</tr>
+
+</table>

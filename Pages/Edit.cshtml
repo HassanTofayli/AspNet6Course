@@ -1,0 +1,22 @@
+﻿@page "{id:long?}"
+@model AspNet6Course.Pages.EditModel
+
+
+
+<table class="table table-striped">
+	<tr>
+		<th>Name</th>
+		<th>Price</th>
+	</tr>
+	<tr>
+		<td>@Model.product.Name</td>
+		<td>@Model.product.price</td>
+	</tr>
+
+</table>
+
+<form method="post" class="form">
+	@Html.AntiForgeryToken()
+	<input name="price" type="text" value="@Model.product.price" />
+	<button class="btn btn-primary mt-2">submit</button>
+</form>

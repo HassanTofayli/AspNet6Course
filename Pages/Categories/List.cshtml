@@ -1,0 +1,34 @@
+﻿@page
+@using AspNet6Course.Data;
+@using AspNet6Course.Models;
+@using Microsoft.AspNetCore.Mvc.RazorPages;
+@model ListModel
+@{
+}
+<h1 class="p-2 bg-info">Categories</h1>
+
+<ul class="list-group m-2">
+	@foreach(string c in Model.categories)
+	{
+		<li class="list-group-item">@c</li>				
+	}
+</ul>
+
+@functions
+{
+	public class ListModel : PageModel {
+
+		private AppDbContext _context;
+		public IEnumerable<string> categories;
+
+		public ListModel(AppDbContext context)
+		{
+			_context = context;
+		}
+
+		public void OnGet()
+		{
+			categories = _context.Categories.Select(c => c.Name);
+		}
+	}
+}

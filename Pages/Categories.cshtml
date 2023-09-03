@@ -1,0 +1,15 @@
+﻿@page
+@model AspNet6Course.Pages.CategoriesModel
+@using AspNet6Course.Data;
+@using AspNet6Course.Models;
+@inject AppDbContext context
+
+<ul>
+	<li>
+		<th>Cat.Name</th>
+	</li>
+	@foreach(Category c in context.Categories)
+	{
+	<li>@c.Name</li>
+	}
+</ul>
