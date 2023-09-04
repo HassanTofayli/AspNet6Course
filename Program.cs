@@ -13,6 +13,7 @@ app.UseHttpsRedirection();
 app.UseHsts();
 
 //app.MapControllerRoute("Default", "{controller=Home}/{action=Index}/{id?}");
+app.UseAuthorization();
 app.MapDefaultControllerRoute();
 app.UseStaticFiles();
 app.MapRazorPages();

@@ -1,0 +1,17 @@
+﻿@model Product
+
+
+<h1>Results</h1>
+
+<table class="table table-striped table-bordered">
+	<tr>
+		<th colspan="2">Form Data</th>
+	</tr>
+	@foreach (string key in TempData.Keys)
+	{
+		<tr>
+			<td>@key</td>
+			<td>@TempData[key]</td>
+		</tr>
+	}
+</table>

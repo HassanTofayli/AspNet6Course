@@ -6,7 +6,7 @@ namespace AspNet6Course.Controllers
 {
     public class HomeController : Controller
     {
-        AppDbContext _db;
+        private AppDbContext _db;
         public HomeController(AppDbContext db)
         {
             _db = db;
